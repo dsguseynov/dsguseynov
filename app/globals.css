@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f4f5fb;
+  --surface: #ffffff;
+  --foreground: #191a23;
+  --muted: #6b6f8a;
+  --border: #e6e7f2;
+  --primary: #6c5ce7;
+  --primary-foreground: #ffffff;
+  --income: #16a34a;
+  --expense: #ef4444;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-income: var(--income);
+  --color-expense: var(--expense);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0f1020;
+    --surface: #191a2e;
+    --foreground: #f1f1f8;
+    --muted: #9497b8;
+    --border: #2a2b47;
+    --primary: #8577f5;
+    --primary-foreground: #0f1020;
+  }
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  overscroll-behavior-y: none;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}

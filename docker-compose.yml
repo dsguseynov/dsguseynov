@@ -1,0 +1,15 @@
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: "file:./data/app.db"
+      JWT_SECRET: ${JWT_SECRET}
+      NODE_ENV: production
+    volumes:
+      - app-data:/app/data
+
+volumes:
+  app-data:
