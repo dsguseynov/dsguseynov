@@ -5,7 +5,7 @@ import { getWalletBalances } from "@/lib/balance";
 
 export async function GET(request: Request) {
   try {
-    const userId = await requireUserId();
+    const userId = await requireUserId(request);
     const { searchParams } = new URL(request.url);
     const now = new Date();
     const month = parseInt(searchParams.get("month") ?? "", 10) || now.getMonth() + 1;

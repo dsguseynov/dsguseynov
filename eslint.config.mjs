@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Separate React Native/Expo project with its own toolchain.
+    "mobile/**",
   ]),
 ]);
 

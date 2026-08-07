@@ -3,9 +3,9 @@ import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { requireUserId, errorResponse } from "@/lib/api-helpers";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const userId = await requireUserId();
+    const userId = await requireUserId(request);
     const categories = await prisma.category.findMany({
       where: { userId },
       orderBy: { name: "asc" },
@@ -25,7 +25,7 @@ const createSchema = z.object({
 
 export async function POST(request: Request) {
   try {
-    const userId = await requireUserId();
+    const userId = await requireUserId(request);
     const body = await request.json().catch(() => null);
     const parsed = createSchema.safeParse(body);
     if (!parsed.success) {

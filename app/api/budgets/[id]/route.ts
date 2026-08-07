@@ -19,7 +19,7 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const userId = await requireUserId();
+    const userId = await requireUserId(request);
     const { id } = await params;
     await getOwnedBudget(userId, id);
     const body = await request.json().catch(() => null);
@@ -39,11 +39,11 @@ export async function PATCH(
 }
 
 export async function DELETE(
-  _request: Request,
+  request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const userId = await requireUserId();
+    const userId = await requireUserId(request);
     const { id } = await params;
     await getOwnedBudget(userId, id);
     await prisma.budget.delete({ where: { id } });

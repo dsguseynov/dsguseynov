@@ -26,7 +26,7 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const userId = await requireUserId();
+    const userId = await requireUserId(request);
     const { id } = await params;
     const existing = await getOwnedTransaction(userId, id);
 
@@ -87,11 +87,11 @@ export async function PATCH(
 }
 
 export async function DELETE(
-  _request: Request,
+  request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const userId = await requireUserId();
+    const userId = await requireUserId(request);
     const { id } = await params;
     await getOwnedTransaction(userId, id);
     await prisma.transaction.delete({ where: { id } });

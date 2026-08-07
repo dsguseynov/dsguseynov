@@ -5,7 +5,7 @@ import { requireUserId, errorResponse, ApiError } from "@/lib/api-helpers";
 
 export async function GET(request: Request) {
   try {
-    const userId = await requireUserId();
+    const userId = await requireUserId(request);
     const { searchParams } = new URL(request.url);
 
     const from = searchParams.get("from");
@@ -65,7 +65,7 @@ const createSchema = z
 
 export async function POST(request: Request) {
   try {
-    const userId = await requireUserId();
+    const userId = await requireUserId(request);
     const body = await request.json().catch(() => null);
     const parsed = createSchema.safeParse(body);
     if (!parsed.success) {

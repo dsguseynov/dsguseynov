@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getCurrentUserId } from "@/lib/auth";
+import { getUserIdFromRequest } from "@/lib/auth";
 
 export class ApiError extends Error {
   status: number;
@@ -9,9 +9,13 @@ export class ApiError extends Error {
   }
 }
 
-/** Returns the authenticated user id, or throws an ApiError(401) that the route's catch block should turn into a response. */
-export async function requireUserId() {
-  const userId = await getCurrentUserId();
+/**
+ * Returns the authenticated user id (from the mobile app's Bearer token or the
+ * web app's session cookie), or throws an ApiError(401) that the route's catch
+ * block should turn into a response. Pass the Request so Bearer tokens work.
+ */
+export async function requireUserId(request?: Request) {
+  const userId = await getUserIdFromRequest(request);
   if (!userId) throw new ApiError(401, "Не авторизован.");
   return userId;
 }

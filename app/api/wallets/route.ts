@@ -4,9 +4,9 @@ import { prisma } from "@/lib/db";
 import { requireUserId, errorResponse } from "@/lib/api-helpers";
 import { getWalletBalances } from "@/lib/balance";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const userId = await requireUserId();
+    const userId = await requireUserId(request);
     const wallets = await getWalletBalances(userId);
     return NextResponse.json({ wallets });
   } catch (error) {
@@ -24,7 +24,7 @@ const createSchema = z.object({
 
 export async function POST(request: Request) {
   try {
-    const userId = await requireUserId();
+    const userId = await requireUserId(request);
     const body = await request.json().catch(() => null);
     const parsed = createSchema.safeParse(body);
     if (!parsed.success) {
